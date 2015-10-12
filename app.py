@@ -8,6 +8,8 @@ import logging
 import sys
 import datetime
 import os
+import urllib
+from markupsafe import Markup
 
 if not os.path.exists(os.path.join(os.getcwd(), 'logs')):
     try:
@@ -41,11 +43,30 @@ def get_userid():
         config.write(json.dumps(settings, indent=4))
     return str(userid)
 
+def get_recent_items(userid):
+    filelist = os.listdir(mus.output_dir(userid))
+    return filelist
+
+@app.template_filter('urlencode')
+def urlencode_filter(s):
+    if type(s) == 'Markup':
+        s = s.unescape()
+    s = s.encode('utf8')
+    s = urllib.quote_plus(s)
+    return Markup(s)
+
 @app.route('/ajax/<action>')
 def ajax(action):
     if action == 'search':
         res = mus.song_search(request.args.get('search_string'))
         return json.dumps(res)
+
+@app.route('/song_get')
+def get_recent():
+    userid = request.cookies.get('userid',get_userid())
+    filename = request.args.get('filename')
+    directory = mus.output_dir(userid)
+    return send_file(os.path.join(directory, filename), as_attachment=True)
 
 @app.route('/song_download')
 def song_download():
@@ -60,7 +81,8 @@ def index():
     userid = request.cookies.get('userid',None)
     if not userid:
         userid = get_userid()
-    resp = make_response(render_template('index.tpl'))
+    recent_items = get_recent_items(userid)
+    resp = make_response(render_template('index.tpl', recent_items=recent_items))
     resp.set_cookie('userid', userid)
     return resp
 

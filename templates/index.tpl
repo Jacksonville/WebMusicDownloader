@@ -8,19 +8,27 @@
 <body>
     <div class="container">
         <h1>Music Downloader</h1>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label for="inputSearch" class="col-sm-2 control-label">Search Term</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputSearch" placeholder="Song Name / Lyrics / Artist">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputSearch" class="col-sm-2 control-label">Search Term</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="inputSearch" placeholder="Song Name / Lyrics / Artist">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-offset-2">
+                <div class="btn btn-primary" id="btnSearch">
+                    <span class="glyphicon glyphicon-search"></span>
+                    &nbsp;Search
                 </div>
             </div>
         </div>
-        <div class="col-sm-offset-2">
-            <div class="btn btn-primary" id="btnSearch">
-                <span class="glyphicon glyphicon-search"></span>
-                &nbsp;Search
-            </div>
+        <div class="row">
+            <h3>Previously Downloaded</h3>
+            {% for item in recent_items %}
+            <a class="btn btn-default col-md-4" href="/song_get?filename={{ item | urlencode }}" style="text-align: left;"><span class="glyphicon glyphicon-music"></span> {{item}} </a>
+            {% endfor %}
         </div>
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.4.min.js') }}"></script>
