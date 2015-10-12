@@ -46,6 +46,7 @@
                 {addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
                 $noty.close();
                     console.log('Downloading '+link);
+                    timedRefresh(10000);
                     location.href = '/song_download?video_link='+encodeURIComponent(link)+'&title='+encodeURIComponent(text);
                     }
                 },
@@ -54,8 +55,11 @@
                 }
             }
             ]});
-            console.log('html: ' + n.options.id);
-        }
+        console.log('html: ' + n.options.id);
+    }
+    function timedRefresh(timeoutPeriod) {
+        setTimeout("location.reload(true);",timeoutPeriod);
+    }
     $(function(){
         $('#btnSearch').click(function(){
             var searchString = encodeURIComponent($('#inputSearch').val());

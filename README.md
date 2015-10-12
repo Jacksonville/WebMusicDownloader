@@ -1,5 +1,6 @@
 # WebMusicDownloader
 I was inspired by [Instant Music Downloader] (http://iyask.me/Instant-Music-Downloader/) and created this web service.
+View a demo [here] (http://music.jagnet.biz)
 
 It requires the following python modules:
 - [Flask] (http://flask.pocoo.org/)
@@ -14,8 +15,8 @@ I made use of the following incredible resources on the web side of things:
 Given that it was created in the space of 30 minutes there might be some bugs, my apologies in advance.
 
 Each user is given an integer value as an ID which is stored as a cookie. Files are downloaded on the server side into directories with these values.
-In a future release I will list previously downloaded files to allow users to grab them again without the delay of polliing youtube.
-Another consideration for a future release is archival of old files.
+Previously downloaded files are available to quickly download without having to poll youtube.
+Files are not currently archived/removed so disk space could be consumed in a busy environment.
 
 If you need help getting up and running, feel free to give me a shout.
 
