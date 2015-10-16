@@ -46,8 +46,8 @@
                 {addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
                 $noty.close();
                     console.log('Downloading '+link);
-                    timedRefresh(10000);
                     location.href = '/song_download?video_link='+encodeURIComponent(link)+'&title='+encodeURIComponent(text);
+                    timedRefresh(10000);
                     }
                 },
             {addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {

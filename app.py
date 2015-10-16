@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 import json
 from flask import Flask, render_template, request, make_response, send_from_directory, send_file
 app = Flask(__name__)
@@ -51,7 +53,11 @@ def get_recent_items(userid):
 def urlencode_filter(s):
     if type(s) == 'Markup':
         s = s.unescape()
-    s = s.encode('utf8')
+    try:
+        s = s.encode('utf8')
+    except:
+        s = s.decode('utf8')#print s 
+        s = s.encode('utf8')
     s = urllib.quote_plus(s)
     return Markup(s)
 

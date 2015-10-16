@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from urllib2 import urlopen
 from urllib import quote_plus as qp
+from time import sleep
 
 def output_dir(user_id):
     outputpath = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'downloads', str(user_id))
@@ -35,6 +36,7 @@ def song_search(search_term):
 def song_download(video_link, user_id, title):
     outputdir = output_dir(user_id)
     video_link = 'http://www.youtube.com{0}'.format(video_link)
-    command = "youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --output '{0}/%(title)s.%(ext)s' {1}".format(outputdir, video_link)
+    command = '''youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --output '{0}/%(title)s.%(ext)s' "{1}"'''.format(outputdir, video_link)
     os.system(command)
+    sleep(5)
     return outputdir, title + '.mp3'
